@@ -1,0 +1,48 @@
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# VM crash logs
+hs_err_pid*
+
+# Build tools (Maven & Gradle)
+target/
+build/
+.gradle/
+.mvn/
+
+# Eclipse IDE
+.settings/
+.classpath
+.project
+bin/
+tmp/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+
+# Visual Studio Code
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Local server configurations or logs
+*.log
+local.properties
+
