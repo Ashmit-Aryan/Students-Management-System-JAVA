@@ -9,7 +9,7 @@ public class Students {
 		
 	}
 	
-	public Students(String name,String email,String course,String batch,String phone,int age) {
+	public Students(String name,String email,String phone,String course,int age,String batch) {
 		this.name = name;
 		this.email = email;
 		this.course = course;

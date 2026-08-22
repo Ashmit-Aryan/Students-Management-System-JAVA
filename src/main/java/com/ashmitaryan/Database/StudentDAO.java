@@ -9,13 +9,17 @@ import java.sql.*;
 
 public class StudentDAO implements StudentDAOInterface {
 	
-	private static final String INSERT_SQL = "INSERT INTO Students(sname,semail,sphone,scourse,age,sbatch) VALUES(?,?,?,?,?,?)";
+	private static final String INSERT_STUDENT = "INSERT INTO Students(sname,semail,sphone,scourse,age,sbatch) VALUES(?,?,?,?,?,?)";
 	private static final String GET_STUDENTS = "SELECT * FROM Students";
+	private static final String GET_STUDENT_BY_ID = "SELECT * FROM Students WHERE id = ?";
+	private static final String UPDATE_STUDENT = "UPDATE Students SET sname=?,semail=?,sphone=?,scourse=?,age=?,sbatch=? WHERE id = ?";
+	private static final String DELETE_STUDENT = "DELETE FROM Students WHERE id = ?";
+	
 	@Override
 	public int insertStudent(Students student) throws SQLException{
 		
 		try(Connection conn = DBConnection.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(INSERT_SQL)){
+				PreparedStatement stmt = conn.prepareStatement(INSERT_STUDENT)){
 			stmt.setString(1,student.getName());
 			stmt.setString(2,student.getEmail());
 			stmt.setString(3,student.getPhone());
@@ -60,17 +64,55 @@ public class StudentDAO implements StudentDAOInterface {
 
 	@Override
 	public Students getStudentById(int ID)throws SQLException {
-		return null;
+		Students student = null;
+		
+		try(Connection conn = DBConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(GET_STUDENT_BY_ID)){
+			stmt.setInt(1, ID);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				student = new Students();
+				
+				student.setName(rs.getString("sname"));
+				student.setEmail(rs.getString("semail"));
+				student.setAge(rs.getInt("age"));
+				student.setPhone(rs.getString("sphone"));
+				student.setCourse(rs.getString("scourse"));
+				student.setBatch(rs.getString("sbatch"));
+			}
+		}
+		
+		return student;
 	}
 
 	@Override
 	public int updateStudent(Students student)throws SQLException {
-		return 0;
+		int rows = 0;
+		try(Connection conn = DBConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(UPDATE_STUDENT)){
+			stmt.setString(2,student.getName());
+			stmt.setString(3, student.getEmail());
+			stmt.setString(4, student.getPhone());
+			stmt.setString(5, student.getCourse());
+			stmt.setInt(6, student.getAge());
+			stmt.setString(7, student.getBatch());
+			
+			rows = stmt.executeUpdate();
+		}
+		
+		return rows;
 	}
 
 	@Override
 	public int deleteStudent(int ID)throws SQLException {
-		return 0;
+		int rows = 0;
+		try(Connection conn = DBConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(DELETE_STUDENT)){
+			stmt.setInt(1,ID);
+			
+			rows = stmt.executeUpdate();
+		}
+		
+		return rows;
 	}
 
 }
