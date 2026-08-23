@@ -15,4 +15,7 @@ public interface StudentDAOInterface {
 	
 	public int deleteStudent(int ID) throws SQLException;
 	
+	public int getStudentByCourse(String course) throws SQLException;
+	
+	List<Students> getRecentStudents() throws SQLException;
 }

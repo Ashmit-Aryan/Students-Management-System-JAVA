@@ -2,7 +2,7 @@ package com.ashmitaryan.Model;
 
 public class Students {
 	
-	private int age;
+	private int age,id;
 	private String name,email,course,batch,phone;
 	
 	public Students() {
@@ -20,7 +20,14 @@ public class Students {
 	public int getAge() {
 		return age;
 	}
-
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
 	public void setAge(int age) {
 		this.age = age;
 	}
