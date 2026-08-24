@@ -1,6 +1,3 @@
-Absolutely. Here is a **copy-paste ready `README.md`** for your GitHub repository, based on the Servlet/JSP Student Management System we've built.
-
-````markdown
 # 🎓 Student Management System
 
 A web-based **Student Management System** built using **Java Servlets, JSP, JDBC, MySQL, Bootstrap, Sessions, and Authentication Filters**.
@@ -761,6 +758,3 @@ Full Stack Developer
 ## ⭐ If you found this project useful
 
 Consider giving the repository a ⭐ on GitHub.
-
-```
-```
