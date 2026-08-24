@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.ashmitaryan.Model.Students;
 import com.ashmitaryan.Database.*;
@@ -30,7 +31,7 @@ public class AddStudentServlet extends HttpServlet {
 			try{
 				int row = insertStudent(request);
 				if(row > 0) {
-					response.sendRedirect(request.getContextPath() + "/Dashboard");
+					response.sendRedirect(request.getContextPath() + "/AllStudentsServlet");
 				}
 
 			}catch(SQLException e) 
@@ -48,7 +49,7 @@ public class AddStudentServlet extends HttpServlet {
 	private static int insertStudent(HttpServletRequest req) throws SQLException {
 		String name, email, phone, course, batch;
 		int age;
-
+		String uniqueId = UUID.randomUUID().toString();
 		name = req.getParameter("name");
 		email = req.getParameter("email");
 		phone = req.getParameter("phone");
@@ -56,7 +57,7 @@ public class AddStudentServlet extends HttpServlet {
 		batch = req.getParameter("batch");
 		age = Integer.parseInt(req.getParameter("age"));
 
-		return studentDAOImpl.insertStudent(new Students(name, email, phone, course, age, batch));
+		return studentDAOImpl.insertStudent(new Students(uniqueId,name, email, phone, course, age, batch));
 
 	}
 

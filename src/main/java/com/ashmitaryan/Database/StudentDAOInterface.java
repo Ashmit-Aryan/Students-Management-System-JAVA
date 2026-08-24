@@ -9,11 +9,11 @@ public interface StudentDAOInterface {
 	
 	public List<Students> getAllStudents() throws SQLException;
 	
-	public Students getStudentById(int ID) throws SQLException;
+	public Students getStudentById(String ID) throws SQLException;
 	
 	public int updateStudent(Students student) throws SQLException;
 	
-	public int deleteStudent(int ID) throws SQLException;
+	public int deleteStudent(String ID) throws SQLException;
 	
 	public int getStudentByCourse(String course) throws SQLException;
 	

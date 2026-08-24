@@ -2,14 +2,15 @@ package com.ashmitaryan.Model;
 
 public class Students {
 	
-	private int age,id;
-	private String name,email,course,batch,phone;
+	private int age;
+	private String id, name,email,course,batch,phone;
 	
 	public Students() {
 		
 	}
 	
-	public Students(String name,String email,String phone,String course,int age,String batch) {
+	public Students(String id, String name,String email,String phone,String course,int age,String batch) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.course = course;
@@ -21,11 +22,11 @@ public class Students {
 		return age;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	public void setAge(int age) {

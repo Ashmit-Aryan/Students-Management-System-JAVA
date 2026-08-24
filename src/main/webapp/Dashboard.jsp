@@ -604,7 +604,7 @@
 
                         <div class="col-md-4">
 
-                            <a href="${pageContext.request.contextPath}/students"
+                            <a href="${pageContext.request.contextPath}/AllStudentsServlet"
                                class="quick-action">
 
                                 <div class="border rounded p-3 text-dark">
@@ -696,22 +696,15 @@
 
                             <%
 
-                                List<Students> recentStudents =
-                                        (List<Students>)
-                                        request.getAttribute(
-                                                "recentStudents"
-                                        );
-
+                                List<Students> recentStudents = (List<Students>)request.getAttribute("recentStudents");
 
                                 if (recentStudents != null
                                         && !recentStudents.isEmpty()) {
 
 
-                                    for (Students student :
-                                            recentStudents) {
+                                    for (Students student : recentStudents) {
 
                             %>
-
 
                             <tr>
 

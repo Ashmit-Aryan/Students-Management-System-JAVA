@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class StudentDAO implements StudentDAOInterface {
 
-	private static final String INSERT_STUDENT = "INSERT INTO Students(sname,semail,sphone,scourse,age,sbatch) VALUES(?,?,?,?,?,?)";
+	private static final String INSERT_STUDENT = "INSERT INTO Students(id,sname,semail,sphone,scourse,age,sbatch) VALUES(?,?,?,?,?,?,?)";
 	private static final String GET_STUDENTS = "SELECT * FROM Students";
 	private static final String GET_STUDENT_BY_ID = "SELECT * FROM Students WHERE id = ?";
 	private static final String UPDATE_STUDENT = "UPDATE Students SET sname=?,semail=?,sphone=?,scourse=?,age=?,sbatch=? WHERE id = ?";
@@ -22,12 +22,14 @@ public class StudentDAO implements StudentDAOInterface {
 
 		try (Connection conn = DBConnection.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(INSERT_STUDENT)) {
-			stmt.setString(1, student.getName());
-			stmt.setString(2, student.getEmail());
-			stmt.setString(3, student.getPhone());
-			stmt.setString(4, student.getCourse());
-			stmt.setInt(5, student.getAge());
-			stmt.setString(6, student.getBatch());
+			
+			stmt.setString(1, student.getId());
+			stmt.setString(2, student.getName());
+			stmt.setString(3, student.getEmail());
+			stmt.setString(4, student.getPhone());
+			stmt.setString(5, student.getCourse());
+			stmt.setInt(6, student.getAge());
+			stmt.setString(7, student.getBatch());
 
 			int rowAffected = stmt.executeUpdate();
 			return rowAffected;
@@ -46,7 +48,7 @@ public class StudentDAO implements StudentDAOInterface {
 
 			while (rs.next()) {
 				Students st = new Students();
-				st.setId(Integer.parseInt(rs.getString("id")));
+				st.setId(rs.getString("id"));
 				st.setName(rs.getString("sname"));
 				st.setEmail(rs.getString("semail"));
 				st.setAge(rs.getInt("age"));
@@ -64,18 +66,18 @@ public class StudentDAO implements StudentDAOInterface {
 	}
 
 	@Override
-	public Students getStudentById(int ID) throws SQLException {
+	public Students getStudentById(String ID) throws SQLException {
 		Students student = null;
 
 		try (Connection conn = DBConnection.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(GET_STUDENT_BY_ID)) {
-			stmt.setInt(1, ID);
+			stmt.setString(1, ID);
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				student = new Students();
-				student.setId(Integer.parseInt(rs.getString("id")));
+				student.setId(rs.getString("id"));
 				student.setName(rs.getString("sname"));
 				student.setEmail(rs.getString("semail"));
 				student.setAge(rs.getInt("age"));
@@ -93,12 +95,13 @@ public class StudentDAO implements StudentDAOInterface {
 		int rows = 0;
 		try (Connection conn = DBConnection.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(UPDATE_STUDENT)) {
-			stmt.setString(2, student.getName());
-			stmt.setString(3, student.getEmail());
-			stmt.setString(4, student.getPhone());
-			stmt.setString(5, student.getCourse());
-			stmt.setInt(6, student.getAge());
-			stmt.setString(7, student.getBatch());
+			stmt.setString(7, student.getId());
+			stmt.setString(1, student.getName());
+			stmt.setString(2, student.getEmail());
+			stmt.setString(3, student.getPhone());
+			stmt.setString(4, student.getCourse());
+			stmt.setInt(5, student.getAge());
+			stmt.setString(6, student.getBatch());
 
 			rows = stmt.executeUpdate();
 		}
@@ -107,11 +110,11 @@ public class StudentDAO implements StudentDAOInterface {
 	}
 
 	@Override
-	public int deleteStudent(int ID) throws SQLException {
+	public int deleteStudent(String ID) throws SQLException {
 		int rows = 0;
 		try (Connection conn = DBConnection.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(DELETE_STUDENT)) {
-			stmt.setInt(1, ID);
+			stmt.setString(1, ID);
 
 			rows = stmt.executeUpdate();
 		}
@@ -149,7 +152,7 @@ public class StudentDAO implements StudentDAOInterface {
 
 				Students student = new Students();
 
-				student.setId(resultSet.getInt("id"));
+				student.setId(resultSet.getString("id"));
 
 				student.setName(resultSet.getString("sname"));
 
