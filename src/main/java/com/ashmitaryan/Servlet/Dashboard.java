@@ -35,11 +35,11 @@ public class Dashboard extends HttpServlet {
 		try {
 			totalStudents = studentDAOImpl.getAllStudents().size();
 			
-			btechStudents = studentDAOImpl.getStudentByCourse("B. Tech");
+			btechStudents = studentDAOImpl.getStudentByCourse("B_Tech");
 			bbaStudents  = studentDAOImpl.getStudentByCourse("BBA");
 			bcaStudents = studentDAOImpl.getStudentByCourse("BCA");
 			bjmcStudents = studentDAOImpl.getStudentByCourse("BJMC");
-			bcomStudents = studentDAOImpl.getStudentByCourse("B.Com");
+			bcomStudents = studentDAOImpl.getStudentByCourse("B_COM");
 			List<Students> st = studentDAOImpl.getRecentStudents();
 			request.setAttribute("totalStudents", totalStudents);
 			request.setAttribute("btechStudents", btechStudents);
