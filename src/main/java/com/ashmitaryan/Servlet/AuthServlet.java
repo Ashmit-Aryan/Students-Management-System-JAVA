@@ -34,7 +34,7 @@ public class AuthServlet extends HttpServlet {
 
 		if ("login".equals(action)) {
 			request.getRequestDispatcher("Login.jsp").forward(request, response);
-		} else if ("sigup".equals(action)) {
+		} else if ("signup".equals(action)) {
 			request.getRequestDispatcher("SignUp.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("Login.jsp").forward(request, response);
@@ -49,9 +49,19 @@ public class AuthServlet extends HttpServlet {
 			
 			Login(request,response);
 			
-		} else if ("sigup".equals(action)) {
+		} else if ("signup".equals(action)) {
 			signUp(request,response);
-		} else {
+		} else if ("logout".equals(action)) {
+			  HttpSession session = request.getSession(false);
+		        boolean isLoggedIn =
+		                session != null &&
+		                session.getAttribute("user") != null;
+		        if(isLoggedIn) {
+		        	session.invalidate();
+		        }else {
+		        	request.setAttribute("error", "User not Logged In ");
+		        }
+		}else {
 			doGet(request,response);
 		}
 
@@ -64,7 +74,7 @@ public class AuthServlet extends HttpServlet {
 
 		if (username == null || password == null) {
 			request.setAttribute("error", "Username and Password Required");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
 
 			return;
 		}
@@ -75,7 +85,7 @@ public class AuthServlet extends HttpServlet {
 			if (user == null) {
 				request.setAttribute("error", "Invalid username or password.");
 
-				request.getRequestDispatcher("/Login.jsp").forward(request, response);
+				request.getRequestDispatcher("Login.jsp").forward(request, response);
 
 				return;
 			}
@@ -92,7 +102,7 @@ public class AuthServlet extends HttpServlet {
 
 			request.setAttribute("error", "Something went wrong. Please try again.");
 
-			request.getRequestDispatcher("/Login.jsp").forward(request, response);
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
 		}
 
 	}
@@ -119,7 +129,7 @@ public class AuthServlet extends HttpServlet {
 	            request.setAttribute("error",
 	                    "All fields are required.");
 
-	            request.getRequestDispatcher("/SignUp.jsp")
+	            request.getRequestDispatcher("SignUp.jsp")
 	                   .forward(request, response);
 
 	            return;
@@ -134,7 +144,7 @@ public class AuthServlet extends HttpServlet {
 	            request.setAttribute("error",
 	                    "Username must be at least 3 characters.");
 
-	            request.getRequestDispatcher("/SignUp.jsp")
+	            request.getRequestDispatcher("SignUp.jsp")
 	                   .forward(request, response);
 
 	            return;
@@ -146,7 +156,7 @@ public class AuthServlet extends HttpServlet {
 	            request.setAttribute("error",
 	                    "Password must be at least 6 characters.");
 
-	            request.getRequestDispatcher("/SignUp.jsp")
+	            request.getRequestDispatcher("SignUp.jsp")
 	                   .forward(request, response);
 
 	            return;
@@ -158,7 +168,7 @@ public class AuthServlet extends HttpServlet {
 	            request.setAttribute("error",
 	                    "Passwords do not match.");
 
-	            request.getRequestDispatcher("/SignUp.jsp")
+	            request.getRequestDispatcher("SignUp.jsp")
 	                   .forward(request, response);
 
 	            return;
@@ -221,5 +231,7 @@ public class AuthServlet extends HttpServlet {
 	        }
 		
 	}
+	
+	
 	
 }

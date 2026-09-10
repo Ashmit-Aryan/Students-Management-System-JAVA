@@ -192,7 +192,7 @@
 
                 <li class="nav-item">
 
-                    <a href="${pageContext.request.contextPath}/logout"
+                    <a href="${pageContext.request.contextPath}/AuthServlet?action=logout"
                        class="nav-link text-danger">
 
                         <i class="bi bi-box-arrow-right me-2"></i>

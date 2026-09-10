@@ -323,7 +323,7 @@
 
 
                         <a
-                            href="<%= request.getContextPath() %>/signup.jsp"
+                            href="<%= request.getContextPath() %>/SignUp.jsp"
                             class="text-decoration-none fw-semibold">
 
                             Create Account
